@@ -28,7 +28,7 @@ def get_command_output(args) -> List[str]:
 
 def get_chrome_version() -> int:
     """Determine the correct name for the chrome binary"""
-    for binary_name in ['google-chrome', 'chromium', 'chrome',
+    for binary_name in ['google-chrome', 'chromium', 'chrome', 'chromium-browser',
                         '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']:
         try:
             version_output = get_command_output([binary_name, '--version'])

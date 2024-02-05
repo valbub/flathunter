@@ -6,11 +6,11 @@ from flathunter.chrome_wrapper import get_chrome_version
 from flathunter.exceptions import ChromeNotFound
 
 CHROME_VERSION_RESULTS = [
-        [], [], [],
-        [], ['Chromium 107.0.5304.87 built on Debian bookworm/sid, running on Debian bookworm/sid'],
+        [], [], [], [],
+        ['Chromium 107.0.5304.87 built on Debian bookworm/sid, running on Debian bookworm/sid'],
         ['Google Chrome 107.0.5304.110'],
         ['Chromium 107.0.5304.87 built on Debian 11.5, running on Debian 11.5'],
-        [], [], [],
+        [], [], [], [],
     ]
 REG_VERSION_RESULTS = [
         [],
