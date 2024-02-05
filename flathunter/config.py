@@ -1,6 +1,6 @@
 """Wrap configuration options as an object"""
 import os
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 
 import json
 import yaml
@@ -150,7 +150,7 @@ Preis: {price}
         """Emulate dictionary"""
         return self.config.get(key, value)
 
-    def _read_yaml_path(self, path, default_value=None):
+    def _read_yaml_path(self, path, default_value):
         """Resolve a dotted variable path in nested dictionaries"""
         config = self.config
         parts = path.split('.')
@@ -192,18 +192,18 @@ Preis: {price}
 
     def database_location(self):
         """Return the location of the database folder"""
-        config_database_location = self._read_yaml_path('database_location')
+        config_database_location = self._read_yaml_path('database_location', None)
         if config_database_location is not None:
             return config_database_location
         return os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + "/..")
 
-    def target_urls(self):
+    def target_urls(self) -> List[str]:
         """List of target URLs for crawling"""
         return self._read_yaml_path('urls', [])
 
     def verbose_logging(self):
         """Return true if logging should be verbose"""
-        return self._read_yaml_path('verbose') is not None
+        return self._read_yaml_path('verbose', None) is not None
 
     def loop_is_active(self):
         """Return true if flathunter should be crawling in a loop"""
@@ -248,7 +248,7 @@ Preis: {price}
             return config_format
         return self.DEFAULT_MESSAGE_FORMAT
 
-    def notifiers(self):
+    def notifiers(self) -> List[str]:
         """List of currently-active notifiers"""
         return self._read_yaml_path('notifiers', [])
 
@@ -264,7 +264,7 @@ Preis: {price}
 
     def telegram_receiver_ids(self):
         """Static list of receiver IDs for notification messages"""
-        return self._read_yaml_path('telegram.receiver_ids') or []
+        return self._read_yaml_path('telegram.receiver_ids', [])
 
     def mattermost_webhook_url(self):
         """Webhook for sending Mattermost messages"""
@@ -274,7 +274,7 @@ Preis: {price}
         """Webhook for sending Slack messages"""
         return self._read_yaml_path('slack.webhook_url', "")
 
-    def apprise_urls(self):
+    def apprise_urls(self) -> List[str]:
         """Notification URLs for Apprise"""
         return self._read_yaml_path('apprise', [])
 
@@ -282,7 +282,7 @@ Preis: {price}
         """API Token for Imagetyperz"""
         return self._read_yaml_path("captcha.imagetyperz.token", "")
 
-    def get_twocaptcha_key(self):
+    def get_twocaptcha_key(self) -> str:
         """API Token for 2captcha"""
         return self._read_yaml_path("captcha.2captcha.api_key", "")
 
